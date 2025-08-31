@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RISP Teachers</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">RISP<span>Teachers</span></div>
+    <nav>
+      <button class="nav-link active" data-view="dashboard">Dashboard</button>
+      <button class="nav-link" data-view="marks">Marks</button>
+      <button class="nav-link" data-view="attendance">Attendance</button>
+      <button class="nav-link" data-view="assignments">Assignments</button>
+      <button class="nav-link" data-view="calendar">Calendar</button>
+      <button class="nav-link" data-view="grades">Grade Sheets</button>
+      <button class="nav-link" data-view="reports">Report Cards</button>
+      <button class="nav-link" data-view="circulars">Circulars</button>
+      <button class="nav-link" data-view="complaints">Complaints</button>
+      <button class="nav-link" data-view="mail">Mail</button>
+      <button class="nav-link" data-view="settings">Settings</button>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <header class="topbar">
+      <div class="title">RISP Teachers Portal</div>
+      <div>
+        <button id="exportBtn" class="btn ghost">Export</button>
+        <button id="resetBtn" class="btn danger">Reset</button>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="view show">
+      <div class="card">
+        <h3>Quick Stats</h3>
+        <div class="stats">
+          <div><div class="stat-num" id="statStudents">0</div><div class="stat-label">Students</div></div>
+          <div><div class="stat-num" id="statSubjects">0</div><div class="stat-label">Subjects</div></div>
+          <div><div class="stat-num" id="statMarks">0</div><div class="stat-label">Marks</div></div>
+          <div><div class="stat-num" id="statAssignments">0</div><div class="stat-label">Assignments</div></div>
+          <div><div class="stat-num" id="statCirculars">0</div><div class="stat-label">Circulars</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKS -->
+    <section id="view-marks" class="view">
+      <div class="card">
+        <h3>Marks Entry</h3>
+        <div class="form">
+          <label>Student</label><select id="marksStudent"></select>
+          <label>Subject</label><select id="marksSubject"></select>
+          <label>Semester</label>
+          <select id="marksSemester"><option value="1">Semester 1</option><option value="2">Semester 2</option></select>
+          <label>Assessment Type</label>
+          <select id="marksAssessment">
+            <option>Weekly Test</option>
+            <option>Subject Enrichment</option>
+            <option>Multiple Assessment</option>
+            <option>Portfolio</option>
+            <option>Examination</option>
+          </select>
+          <label id="maSubLabel" style="display:none;">MA Subcategory</label>
+          <input id="marksMASub" style="display:none;" placeholder="e.g., Quiz, Project">
+          <label>Title</label><input id="marksTitle" placeholder="e.g., Algebra Test">
+          <label>Score</label><input id="marksScore" type="number" step="0.25">
+          <label>Out of</label><input id="marksOutOf" type="number" step="0.25" value="10">
+          <label>Comment</label><textarea id="marksComment"></textarea>
+          <button id="saveMarkBtn" class="btn">Save Mark</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Marks Ledger</h3>
+        <table id="marksTable">
+          <thead><tr><th>Student</th><th>Subject</th><th>Sem</th><th>Type</th><th>Title</th><th>Score</th><th>Out of</th><th>Comment</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ATTENDANCE -->
+    <section id="view-attendance" class="view">
+      <div class="card">
+        <h3>Attendance</h3>
+        <div class="form">
+          <label>Date</label><input type="date" id="attDate">
+          <label>Is School Working?</label>
+          <select id="attWorking">
+            <option value="yes" selected>Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Mark Attendance</h3>
+        <table id="attTable">
+          <thead><tr><th>Student</th><th>1st Half</th><th>2nd Half</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <button id="saveAttendanceBtn" class="btn">Save Attendance</button>
+      </div>
+      <div class="card">
+        <h3>Attendance Records</h3>
+        <table id="attRecords">
+          <thead><tr><th>Date</th><th>Working?</th><th>Student</th><th>1st Half</th><th>2nd Half</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ASSIGNMENTS -->
+    <section id="view-assignments" class="view">
+      <div class="card">
+        <h3>Create Assignment</h3>
+        <div class="form">
+          <label>Subject</label><select id="asSubject"></select>
+          <label>Title</label><input id="asTitle" placeholder="Assignment Title">
+          <label>Description</label><textarea id="asDescription"></textarea>
+          <label>Due Date</label><input type="date" id="asDueDate">
+          <label>Attach File</label><input type="file" id="asFile">
+          <button id="saveAssignment" class="btn">Save Assignment</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Assignments</h3>
+        <table id="asTable">
+          <thead><tr><th>Subject</th><th>Title</th><th>Description</th><th>Due</th><th>File</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section id="view-calendar" class="view">
+      <div class="card">
+        <h3>Calendar</h3>
+        <div id="calendar"></div>
+      </div>
+      <div class="card">
+        <h3>Add Event</h3>
+        <div class="form">
+          <label>Title</label><input id="calTitle">
+          <label>Date</label><input type="date" id="calDate">
+          <label>Description</label><textarea id="calDesc"></textarea>
+          <button id="saveEventBtn" class="btn">Save Event</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRADE SHEETS -->
+    <section id="view-grades" class="view">
+      <div class="card">
+        <h3>Grade Sheets</h3>
+        <div id="gradeSheetsArea"></div>
+      </div>
+    </section>
+
+    <!-- REPORT CARDS -->
+    <section id="view-reports" class="view">
+      <div class="card">
+        <h3>Report Cards</h3>
+        <div class="form">
+          <label>Student</label><select id="reportStudent"></select>
+          <label>Semester</label>
+          <select id="reportSemester"><option value="1">Semester 1</option><option value="2">Semester 2</option></select>
+          <button id="generateReportBtn" class="btn">Generate</button>
+          <button id="printReportBtn" class="btn secondary">Download PDF</button>
+        </div>
+        <div id="reportCardArea"></div>
+      </div>
+    </section>
+
+    <!-- CIRCULARS -->
+    <section id="view-circulars" class="view">
+      <div class="card">
+        <h3>Create Circular</h3>
+        <div class="form">
+          <label>Title</label><input id="circTitle">
+          <label>Description</label><textarea id="circDesc"></textarea>
+          <label>Date</label><input type="date" id="circDate">
+          <label>Attach File</label><input type="file" id="circFile">
+          <button id="saveCircularBtn" class="btn">Save Circular</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>All Circulars</h3>
+        <table id="circularsTable">
+          <thead><tr><th>Title</th><th>Date</th><th>Description</th><th>File</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- COMPLAINTS -->
+    <section id="view-complaints" class="view">
+      <div class="card">
+        <h3>Submit Complaint</h3>
+        <div class="form">
+          <label>Student</label><select id="compStudent"></select>
+          <label>Complaint</label><textarea id="compText"></textarea>
+          <button id="saveComplaintBtn" class="btn">Submit</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Complaints List</h3>
+        <table id="compTable">
+          <thead><tr><th>Student</th><th>Complaint</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- MAIL -->
+    <section id="view-mail" class="view">
+      <div class="card">
+        <h3>Compose Mail</h3>
+        <div class="form">
+          <label>To</label><input id="mailTo" placeholder="Recipient">
+          <label>Subject</label><input id="mailSubject">
+          <label>Message</label><textarea id="mailBody"></textarea>
+          <button id="sendMailBtn" class="btn">Send</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Sent Mails</h3>
+        <table id="mailTable">
+          <thead><tr><th>To</th><th>Subject</th><th>Message</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <div class="card">
+        <h3>Settings</h3>
+        <div class="form">
+          <label>Teacher Name</label><input id="teacherName">
+          <label>Email</label><input id="teacherEmail">
+          <button id="saveSettingsBtn" class="btn">Save Settings</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
